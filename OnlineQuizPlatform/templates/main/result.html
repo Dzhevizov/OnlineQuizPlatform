@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container ">
+
+    <div class="card-columns" style="padding: 10px; margin: 20px;">
+        <div class="card" style="width: 32rem; border:5px black solid">
+            <img class="card-img-top" src="http://kmit.in/emagazine/wp-content/uploads/2018/02/karnataka-results.jpg" alt="Card image cap">
+            <div class="card-body">
+                {% if best_result %}
+                    <h5 class="card-title">Поздравления, {{ player }}</h5>
+                    <h5>Вие постигнахте нов рекорд!</h5>
+                {% else %}
+                    <h5 class="card-title">{{ player }}, Вашият резултат е:</h5>
+                {% endif %}
+                <h5 class="card-title">Score: {{ score }}</h5>
+                <p class="card-text">Time Taken: {{ taken_time }} seconds</p>
+                <p class="card-text">Correct answers: {{ correct }}</p>
+                <p class="card-text">Incorrect answers: {{ incorrect }}</p>
+                <h5>All the best for next quiz!</h5>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

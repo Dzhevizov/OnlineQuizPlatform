@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="category-details">
+        <h1 class='text-center'>Куиз: {{ quiz.title }}</h1>
+        <h5 class="text-center">Подкатегория: {{ quiz.subcategory }}</h5>
+        <h5 class="text-center">Категория: {{ quiz.subcategory.category }}</h5>
+        <h5 class="text-center">Продължителност: {{ quiz.duration }} мин.</h5>
+        <h5 class="text-center">Автор: {{ quiz.author }}</h5>
+        <p class="text-center">{{ quiz.description }}</p>
+
+        {% if quiz.author == request.user %}
+            <div class="bp3-button-group">
+                <a href="{% url 'edit quiz' quiz.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete quiz' quiz.id %}" class="btn btn-danger">Delete</a>
+            </div>
+        {% endif %}
+
+    </div>
+
+    {% if questions %}
+        {% if quiz.author == request.user %}
+            <h3 class='text-center'>Въпроси</h3>
+            {% for question in questions %}
+                <h6>{{ question.description }}</h6>
+                <div class="form-check">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ question.description }}" id="gridRadios1"
+                               value="option1">
+                        <label class="form-check-label" for="gridRadios1">
+                            {{ question.option1 }}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ question.description }}" id="gridRadios2"
+                               value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                            {{ question.option2 }}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ question.description }}" id="gridRadios1"
+                               value="option3">
+                        <label class="form-check-label" for="gridRadios1">
+                            {{ question.option3 }}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ question.description }}" id="gridRadios2"
+                               value="option4">
+                        <label class="form-check-label" for="gridRadios2">
+                            {{ question.option4 }}
+                        </label>
+                    </div>
+                    <br>
+                </div>
+                <div class="bp3-button-group">
+                    <a href="{% url 'edit question' question.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'delete question' question.id %}" class="btn btn-danger">Delete</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="take-quiz">
+                <div class="bp3-button-group">
+                    <a href="{% url 'take quiz' quiz.id %}" class="btn btn-primary">Take quiz</a>
+                </div>
+            </div>
+        {% endif %}
+
+    {% else %}
+        <div class="take-quiz">
+            <h3 class='text-center'>Няма създадени въпроси</h3>
+        </div>
+    {% endif %}
+    {% if quiz.author == request.user %}
+        <div class="create-category">
+            <a href="{% url 'create question' %}" class="btn btn-primary">Create question</a>
+        </div>
+    {% endif %}
+
+{% endblock %}

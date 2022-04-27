@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="category-details">
+        <h1 class='text-center'>{{ category.name }}</h1>
+        <img src="{{ category.picture }}" class="category-picture" alt="description">
+        <p class="text-center">{{ category.description }}</p>
+        {% if perms.auth_user.change_category %}
+            <div class="bp3-button-group">
+                <a href="{% url 'edit category' category.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete category' category.id %}" class="btn btn-danger">Delete</a>
+            </div>
+        {% endif %}
+
+    </div>
+
+    {% if subcategories %}
+        <h3 class='text-center'>Подкатегории</h3>
+        <div class="categories">
+            <div class="container mb-5">
+                <div class="row mb-5">
+                    {% for subcategory in subcategories %}
+                        <div class="category-elem">
+                            <div class="card ml-3 mb-3" style="width: 18rem;">
+                                <img src="{{ subcategory.picture }}"
+                                     class="card-img-top" alt="description">
+                                <div class="card-body">
+                                    <h3 class='text-center'>{{ subcategory.name }}</h3>
+                                    <p class="text-center">{{ subcategory.description|truncatechars:50 }}</p>
+                                    <a href="{% url 'subcategory details' subcategory.id %}" class="btn btn-primary">See
+                                        details</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+    {% else %}
+        <div>
+            <h3 class='text-center'>Все още няма подкатегории</h3>
+        </div>
+    {% endif %}
+    {% if perms.auth_user.add_subcategory %}
+        <div class="create-category">
+            <a href="{% url 'create subcategory' %}" class="btn btn-primary">Create subcategory</a>
+        </div>
+    {% endif %}
+
+{% endblock %}

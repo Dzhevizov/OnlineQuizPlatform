@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1 class='text-center'>Категории</h1>
+
+    {% if categories %}
+        <div class="categories">
+            <div class="container mb-5">
+                <div class="row mb-5">
+                    {% for category in categories %}
+                        <div class="category-elem">
+                            <div class="card ml-3 mb-3" style="width: 18rem;">
+                                <img src="{{ category.picture }}"
+                                     class="card-img-top" alt="description">
+                                <div class="card-body">
+                                    <h3 class='text-center'>{{ category.name }}</h3>
+                                    <p class="text-center">{{ category.description|truncatechars:50 }}</p>
+                                    <a href="{% url 'category details' category.id %}" class="btn btn-primary">See
+                                        details</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+    {% else %}
+        <div>
+            <h3 class='text-center'>Все още няма категории</h3>
+        </div>
+    {% endif %}
+    {% if perms.auth_app.add_category %}
+        <div class="create-category">
+            <a href="{% url 'create category' %}" class="btn btn-primary">Create category</a>
+        </div>
+    {% endif %}
+
+{% endblock %}

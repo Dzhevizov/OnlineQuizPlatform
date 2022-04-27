@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="category-details">
+    <h1 class='text-center'>{{ subcategory.name }}</h1>
+    <img src="{{ subcategory.picture }}" class="category-picture" alt="description">
+    <p class="text-center">{{ subcategory.description }}</p>
+    {% if perms.auth_user.change_subcategory %}
+    <div class="bp3-button-group">
+        <a href="{% url 'edit subcategory' subcategory.id %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'delete subcategory' subcategory.id %}" class="btn btn-danger">Delete</a>
+    </div>
+    {% endif %}
+</div>
+
+    {% if quizzes %}
+        <h3 class='text-center'>Куизове</h3>
+        <div class="categories">
+            <div class="container mb-5">
+                <div class="row mb-5">
+                    {% for quiz in quizzes %}
+                        <div class="subcategory-elem">
+                            <div class="card ml-3 mb-3" style="width: 22rem;">
+                                <div class="card-body">
+                                    <h3 class='text-center'>{{ quiz.title|truncatechars:20 }}</h3>
+                                    <p class="text-center">{{ quiz.description|truncatechars:70 }}</p>
+                                    <div class='text-center'>{{ quiz.duration }} мин</div>
+                                    <a href="{% url 'quiz details' quiz.id %}" class="btn btn-primary">See details</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+    {% else %}
+        <div>
+            <h3 class='text-center'>Няма активни куизове</h3>
+        </div>
+    {% endif %}
+    {% if perms.auth_user.add_quiz %}
+    <div class="create-category">
+        <a href="{% url 'create quiz' %}" class="btn btn-primary">Create quiz</a>
+    </div>
+    {% endif %}
+{% endblock %}

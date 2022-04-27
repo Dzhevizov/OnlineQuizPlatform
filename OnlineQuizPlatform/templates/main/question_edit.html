@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form class='form' action="{% url 'edit question' question.id %}" method="post">
+        <h3 class="text-center text-info">Edit Question</h3>
+        {% csrf_token %}
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+            </div>
+            <div>
+                {{ field }}
+                {{ field.errors }}
+            </div>
+
+        {% endfor %}
+
+        <input type="submit" name="submit" class="btn btn-info btn-md" value="Edit">
+    </form>
+{% endblock %}

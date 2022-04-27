@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="delete-category">
+    <form class='form' action="{% url 'delete quiz' quiz.id %}" method="post">
+        <h3 class="text-center text-info">Сигурни ли сте, че искате да изтриете куиз {{ quiz.title }}?</h3>
+        {% csrf_token %}
+        {{ form }}
+
+        <input type="submit" name="submit" class="btn btn-info btn-md" value="Потвърди">
+    </form>
+    </div>
+
+{% endblock %}
