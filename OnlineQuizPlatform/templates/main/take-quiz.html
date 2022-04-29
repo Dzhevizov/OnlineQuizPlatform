@@ -5,7 +5,7 @@
         <h1 class='text-center'>Куиз: {{ quiz.title }}</h1>
         <h5 class="text-center">Подкатегория: {{ quiz.subcategory }}</h5>
         <h5 class="text-center">Категория: {{ quiz.subcategory.category }}</h5>
-        <h5 class="text-center">Продължителност: {{ quiz.duration }} мин.</h5>
+        <h5 class="text-center">Създаден: {{ quiz.created_on }}</h5>
         <h5 class="text-center">Автор: {{ quiz.author }}</h5>
         <p class="text-center">{{ quiz.description }}</p>
     </div>
@@ -52,7 +52,7 @@
     {% endfor %}
     <input id='timer' type='hidden' name="timer" value="">
     <br>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Завърши куиза и виж резултата</button>
   </form>
     {% block script %}
         <script>

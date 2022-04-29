@@ -1,7 +1,7 @@
 from django import forms
 
 from OnlineQuizPlatform.common.helpers import BootstrapFormMixin
-from OnlineQuizPlatform.main.models import Question
+from OnlineQuizPlatform.main.models import Question, Quiz
 
 
 class CreateQuestionForm(BootstrapFormMixin, forms.ModelForm):

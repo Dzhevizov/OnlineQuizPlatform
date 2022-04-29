@@ -7,13 +7,13 @@
             {% if form.errors %}
                 <p>Въведеното потребителско име и парола не съвпадат. Моля, опитайте отново!</p>
             {% endif %}
-            {% if next %}
-                {% if user.is_authenticated %}
-                    <p>Вашият акаунт няма достъп до тази страница. Моля, влезте с акаунт, който има нужните права.</p>
-                {% else %}
-                    <p>Моля, логнете се, за да видите тази страница!</p>
-                {% endif %}
+
+            {% if user.is_authenticated %}
+                <p>Вашият акаунт няма достъп до тази страница. Моля, влезте с акаунт, който има нужните права.</p>
+            {% else %}
+                <p>Моля, логнете се, за да видите тази страница!</p>
             {% endif %}
+
             <h3 class="text-center text-info">Вход</h3>
             {% csrf_token %}
             {% for field in form %}
@@ -27,7 +27,7 @@
 
             {% endfor %}
 
-            <input type="submit" name="submit" class="btn btn-info btn-md" value="Вход">
+            <input type="submit" name="submit" class="btn btn-info btn-md" value="Влез">
         </form>
     </div>
 

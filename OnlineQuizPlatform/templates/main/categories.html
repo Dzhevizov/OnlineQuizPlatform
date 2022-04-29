@@ -16,8 +16,7 @@
                                 <div class="card-body">
                                     <h3 class='text-center'>{{ category.name }}</h3>
                                     <p class="text-center">{{ category.description|truncatechars:50 }}</p>
-                                    <a href="{% url 'category details' category.id %}" class="btn btn-primary">See
-                                        details</a>
+                                    <a href="{% url 'category details' category.id %}" class="btn btn-primary">Виж детайли</a>
                                 </div>
                             </div>
                         </div>
@@ -32,9 +31,9 @@
             <h3 class='text-center'>Все още няма категории</h3>
         </div>
     {% endif %}
-    {% if perms.auth_app.add_category %}
+    {% if perms.main.add_category %}
         <div class="create-category">
-            <a href="{% url 'create category' %}" class="btn btn-primary">Create category</a>
+            <a href="{% url 'create category' %}" class="btn btn-primary">Създай категория</a>
         </div>
     {% endif %}
 

@@ -1,15 +1,22 @@
-from django.shortcuts import render
+from django.contrib.auth import mixins as auth_mixins
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-from OnlineQuizPlatform.auth_app.models import Profile
 from OnlineQuizPlatform.main.forms.quizzes import CreateQuizForm, DeleteQuizForm
 from OnlineQuizPlatform.main.models import Quiz, Question, QuizResult
 
 
-class CreateQuizView(views.CreateView):
+class CreateQuizView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequiredMixin, views.CreateView):
     template_name = 'main/quiz_create.html'
     form_class = CreateQuizForm
+    permission_required = 'main.add_quiz'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permission():
+            return redirect('restricted')
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('subcategory details', kwargs={'pk': self.object.subcategory.id})
@@ -35,24 +42,37 @@ class QuizDetailsView(views.DetailView):
         return context
 
 
-class EditQuizView(views.UpdateView):
+class EditQuizView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequiredMixin, views.UpdateView):
     model = Quiz
     fields = ('title', 'duration', 'description')
     template_name = 'main/quiz_edit.html'
+    permission_required = 'main.change_quiz'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permission():
+            return redirect('restricted')
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('quiz details', kwargs={'pk': self.object.id})
 
 
-class DeleteQuizView(views.DeleteView):
+class DeleteQuizView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequiredMixin, views.DeleteView):
     model = Quiz
     form_class = DeleteQuizForm
     template_name = 'main/quiz-delete.html'
+    permission_required = 'main.delete_quiz'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permission():
+            return redirect('restricted')
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('subcategory details', kwargs={'pk': self.object.subcategory.id})
 
 
+@login_required
 def take_quiz(request, pk):
     quiz = Quiz.objects.get(pk=pk)
 

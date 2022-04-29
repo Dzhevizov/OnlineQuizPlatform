@@ -7,7 +7,7 @@
                 <div class="col-xl-4">
                     <!-- Profile picture card-->
                     <div class="card mb-4 mb-xl-0">
-                        <div class="card-header">Profile Picture</div>
+                        <div class="card-header">Профилна снимка</div>
                         <div class="card-body text-center">
 
                             <img class="img-account-profile rounded-circle mb-2" src="{{ profile.picture }}"
@@ -19,67 +19,83 @@
                 <div class="col-xl-8">
                     <!-- Account details card-->
                     <div class="card mb-4">
-                        <div class="card-header">Profile Details</div>
+                        <div class="card-header">Детайли</div>
                         <div class="card-body">
                             <form>
                                 <div class="row gx-3 mb-3">
                                     <div class="col-md-6">
-                                        <label class="small mb-1">Username: {{ request.user.username }}</label>
+                                        <label class="small mb-1">Потребителско име: {{ request.user.username }}</label>
 
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="small mb-1">Email: {{ request.user.email }}</label>
-
-                                    </div>
-                                </div>
-                                <div class="row gx-3 mb-3">
-                                    <div class="col-md-6">
-                                        <label class="small mb-1">First name: {{ profile.first_name }}</label>
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="small mb-1">Last name: {{ profile.last_name }}</label>
+                                        <label class="small mb-1">Електронна поща: {{ request.user.email }}</label>
 
                                     </div>
                                 </div>
                                 <div class="row gx-3 mb-3">
                                     <div class="col-md-6">
-                                        <label class="small mb-1">Average result: {{ average_result }}</label>
+                                        <label class="small mb-1">Първо име: {{ profile.first_name }}</label>
 
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="small mb-1">Rank: {{ rank }}</label>
+                                        <label class="small mb-1">Фамилия: {{ profile.last_name }}</label>
+
+                                    </div>
+                                </div>
+                                <div class="row gx-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="small mb-1">Среден резултат: {{ average_result }}</label>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="small mb-1">Ранг: {{ rank }}</label>
 
                                     </div>
                                 </div>
                                 <div class="row gx-3 mb-3">
                                     {% if profile.date_of_birth %}
                                         <div class="col-md-6">
-                                            <label class="small mb-1">Age: {{ profile.age }}</label>
+                                            <label class="small mb-1">Възраст: {{ profile.age }}</label>
                                         </div>
                                     {% endif %}
                                     {% if profile.gender %}
                                         <div class="col-md-6">
-                                            <label class="small mb-1">Gender: {{ profile.gender }}</label>
+                                            <label class="small mb-1">Пол: {{ profile.gender }}</label>
                                         </div>
                                     {% endif %}
                                 </div>
                                 {% if profile.city %}
                                     <div class="mb-3">
-                                        <label class="small mb-1">City: {{ profile.city }}</label>
+                                        <label class="small mb-1">Град: {{ profile.city }}</label>
                                     </div>
                                 {% endif %}
                                 {% if profile.description %}
                                     <div class="mb-3">
-                                        <label class="small mb-1">Description: {{ profile.description }}</label>
+                                        <label class="small mb-1">Описание: {{ profile.description }}</label>
                                     </div>
                                 {% endif %}
                                 <div class="mb-3">
-                                        <label class="small mb-1">Taken quizzes: {{ taken_quizzes_count }}</label>
-                                    </div>
+                                    <label class="small mb-1">Брой взети куизове: {{ taken_quizzes_count }}</label>
+                                </div>
 
-                                <a href="{% url 'edit profile' request.user.id %}" class="btn btn-primary">Edit</a>
-                                <a href="{% url 'delete profile' request.user.id %}" class="btn btn-danger">Delete</a>
+                                <div>
+                                    {% if created_quizzes %}
+                                        <a href="{% url 'created quizzes' request.user.id %}" class="btn btn-success">Създадени
+                                            куизове</a>
+                                    {% endif %}
+
+                                    {% if quiz_results %}
+                                        <a href="{% url 'quiz results' request.user.id %}" class="btn btn-success">Постигнати
+                                            резултати</a>
+                                    {% endif %}
+                                </div>
+                                <br>
+                                <div>
+                                    <a href="{% url 'edit profile' request.user.id %}" class="btn btn-primary">Редактирай</a>
+                                    <a href="{% url 'delete profile' request.user.id %}"
+                                       class="btn btn-danger">Изтрий</a>
+                                </div>
+
                             </form>
                         </div>
                     </div>

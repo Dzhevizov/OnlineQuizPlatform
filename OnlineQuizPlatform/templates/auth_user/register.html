@@ -3,7 +3,7 @@
 {% block content %}
 
     <form class='form' action="{% url 'register user' %}" method="post">
-        <h3 class="text-center text-info">Register</h3>
+        <h3 class="text-center text-info">Регистрация</h3>
         {% csrf_token %}
         {% for field in form %}
             <div>
@@ -16,7 +16,7 @@
 
         {% endfor %}
 
-        <input type="submit" name="submit" class="btn btn-info btn-md" value="Register">
+        <input type="submit" name="submit" class="btn btn-info btn-md" value="Регистрирай се">
     </form>
 
 {% endblock %}

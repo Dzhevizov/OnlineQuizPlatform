@@ -1,4 +1,5 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth import mixins as auth_mixins
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
@@ -6,13 +7,16 @@ from OnlineQuizPlatform.main.forms.categories import CreateCategoryForm, DeleteC
 from OnlineQuizPlatform.main.models import Category, SubCategory
 
 
-class CreateCategoryView(views.CreateView):
+class CreateCategoryView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequiredMixin, views.CreateView):
     template_name = 'main/category_create.html'
     form_class = CreateCategoryForm
-
     success_url = reverse_lazy('categories')
+    permission_required = 'main.add_category'
 
-
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permission():
+            return redirect('restricted')
+        return super().dispatch(request, *args, **kwargs)
 
 
 class CategoriesView(views.ListView):
@@ -45,18 +49,29 @@ class CategoryDetailsView(views.DetailView):
         return context
 
 
-class EditCategoryView(views.UpdateView):
+class EditCategoryView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequiredMixin, views.UpdateView):
     model = Category
     fields = ('name', 'picture', 'description')
     template_name = 'main/category_edit.html'
+    permission_required = 'main.change_category'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permission():
+            return redirect('restricted')
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('category details', kwargs={'pk': self.object.id})
 
 
-class DeleteCategoryView(views.DeleteView):
+class DeleteCategoryView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequiredMixin, views.DeleteView):
     model = Category
     form_class = DeleteCategoryForm
     template_name = 'main/category-delete.html'
-
     success_url = reverse_lazy('categories')
+    permission_required = 'main.delete_category'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permission():
+            return redirect('restricted')
+        return super().dispatch(request, *args, **kwargs)

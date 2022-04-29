@@ -5,14 +5,14 @@
         <h1 class='text-center'>Куиз: {{ quiz.title }}</h1>
         <h5 class="text-center">Подкатегория: {{ quiz.subcategory }}</h5>
         <h5 class="text-center">Категория: {{ quiz.subcategory.category }}</h5>
-        <h5 class="text-center">Продължителност: {{ quiz.duration }} мин.</h5>
+        <h5 class="text-center">Създаден: {{ quiz.created_on }}</h5>
         <h5 class="text-center">Автор: {{ quiz.author }}</h5>
         <p class="text-center">{{ quiz.description }}</p>
 
         {% if quiz.author == request.user %}
             <div class="bp3-button-group">
-                <a href="{% url 'edit quiz' quiz.id %}" class="btn btn-primary">Edit</a>
-                <a href="{% url 'delete quiz' quiz.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'edit quiz' quiz.id %}" class="btn btn-primary">Редактирай</a>
+                <a href="{% url 'delete quiz' quiz.id %}" class="btn btn-danger">Изтрий</a>
             </div>
         {% endif %}
 
@@ -55,14 +55,14 @@
                     <br>
                 </div>
                 <div class="bp3-button-group">
-                    <a href="{% url 'edit question' question.id %}" class="btn btn-primary">Edit</a>
-                    <a href="{% url 'delete question' question.id %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'edit question' question.id %}" class="btn btn-primary">Редактирай</a>
+                    <a href="{% url 'delete question' question.id %}" class="btn btn-danger">Изтрий</a>
                 </div>
             {% endfor %}
         {% else %}
             <div class="take-quiz">
                 <div class="bp3-button-group">
-                    <a href="{% url 'take quiz' quiz.id %}" class="btn btn-primary">Take quiz</a>
+                    <a href="{% url 'take quiz' quiz.id %}" class="btn btn-primary">Започни куиз</a>
                 </div>
             </div>
         {% endif %}
@@ -74,7 +74,7 @@
     {% endif %}
     {% if quiz.author == request.user %}
         <div class="create-category">
-            <a href="{% url 'create question' %}" class="btn btn-primary">Create question</a>
+            <a href="{% url 'create question' %}" class="btn btn-primary">Създай въпрос</a>
         </div>
     {% endif %}
 

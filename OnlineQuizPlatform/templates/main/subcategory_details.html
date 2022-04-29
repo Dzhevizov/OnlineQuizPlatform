@@ -5,10 +5,10 @@
     <h1 class='text-center'>{{ subcategory.name }}</h1>
     <img src="{{ subcategory.picture }}" class="category-picture" alt="description">
     <p class="text-center">{{ subcategory.description }}</p>
-    {% if perms.auth_user.change_subcategory %}
+    {% if perms.main.change_subcategory %}
     <div class="bp3-button-group">
-        <a href="{% url 'edit subcategory' subcategory.id %}" class="btn btn-primary">Edit</a>
-        <a href="{% url 'delete subcategory' subcategory.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'edit subcategory' subcategory.id %}" class="btn btn-primary">Редактирай</a>
+        <a href="{% url 'delete subcategory' subcategory.id %}" class="btn btn-danger">Изтрий</a>
     </div>
     {% endif %}
 </div>
@@ -25,7 +25,7 @@
                                     <h3 class='text-center'>{{ quiz.title|truncatechars:20 }}</h3>
                                     <p class="text-center">{{ quiz.description|truncatechars:70 }}</p>
                                     <div class='text-center'>{{ quiz.duration }} мин</div>
-                                    <a href="{% url 'quiz details' quiz.id %}" class="btn btn-primary">See details</a>
+                                    <a href="{% url 'quiz details' quiz.id %}" class="btn btn-primary">Виж детайли</a>
                                 </div>
                             </div>
                         </div>
@@ -36,13 +36,13 @@
 
 
     {% else %}
-        <div>
+        <div class="no_subcategories">
             <h3 class='text-center'>Няма активни куизове</h3>
         </div>
     {% endif %}
-    {% if perms.auth_user.add_quiz %}
+    {% if perms.main.add_quiz %}
     <div class="create-category">
-        <a href="{% url 'create quiz' %}" class="btn btn-primary">Create quiz</a>
+        <a href="{% url 'create quiz' %}" class="btn btn-primary">Създай куиз</a>
     </div>
     {% endif %}
 {% endblock %}
