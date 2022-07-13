@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-from OnlineQuizPlatform.secret_key import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.urls import reverse_lazy
@@ -23,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
+SECRET_KEY = 'django-insecure-bjm#+k7q1!9)8ag6pn2h6fkgt^g-*iq!g5)v%bg+1&!-4n0&hw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
