@@ -1,2 +1,2 @@
 web: gunicorn --pythonpath OnlineQuizPlatform OnlineQuizPlatform.wsgi
-release: python manage.py migrate
+release: python OnlineQuizPlatform/manage.py migrate
