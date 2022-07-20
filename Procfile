@@ -1,1 +1,1 @@
-web: gunicorn OnlineQuizPlatform.wsgi
+web: gunicorn --pythonpath OnlineQuizPlatform OnlineQuizPlatform.wsgi
