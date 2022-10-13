@@ -5,6 +5,6 @@ used languages: python, html, css
 
 used framework: django
 
-used tools: pycharm, pytest, postgreSQL
+used tools: pycharm, pytest, postgreSQL, git, bootstrap
 
 deployed on: https://online-quiz-platform.herokuapp.com/
